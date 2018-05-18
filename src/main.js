@@ -5,6 +5,7 @@ import store from './store'
 import axios from './components/axios'
 // import axios from './app.vue'
 import * as filters from './filters'
+import './assets/styles/base.css'
 
 
 // 全局引入vux组件库
@@ -32,6 +33,15 @@ Vue.use(verify, {
     blur: true,// 是否失去焦点后开始验证
     rules: myRules
 });
+
+var configPath = ''
+if (window.location.protocol == "https:") {
+  configPath = process.env.BASE_URL.replace('http', 'https')
+} else {
+  configPath = process.env.BASE_URL
+}
+
+window.configPath = configPath
 
 const FastClick = require('fastclick')
 FastClick.attach(document.body)

@@ -26,6 +26,16 @@ export default new Router({
             // }
         },
         {
+            path: '/home/product/:id',
+            name:'product',
+            component:resolve=>require(['../views/home/product.vue'],resolve),
+        },
+        {
+            path: '/home/ticket',
+            name:'ticket',
+            component:resolve=>require(['../views/home/ticket.vue'],resolve)
+        },
+        {
             path: '/me',
             name: 'me',
             component: resolve => require(['../views/me'], resolve)  ,
