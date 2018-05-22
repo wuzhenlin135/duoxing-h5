@@ -26,7 +26,7 @@
   .detail-list-right{
   	position:relative;
   	float:left;
-  	width:50%;  
+  	width:50%;
   }
   .detail-list-right .head{
   	position:absolute;
@@ -35,7 +35,7 @@
   }
   .detail-list-right .tail{
   	position:absolute;
-  	top:2rem;  	
+  	top:2rem;
   	text-align:center;
   }
 </style>
@@ -49,30 +49,30 @@
 			:arrow-direction="showDes? 'up' :'down'"
 			@click.native="showDes = !showDes"
 			:title="title"
-			></cell>			
+			></cell>
 		</group>
 		<p v-if="!showDes" class="detail-des detail-intro" v-html="desc"></p>
 		<p v-if=showDes class="detail-des" v-html="desc"></p>
 		<div>
 			<group>
-				<cell title="景点列表"></cell>				
+				<cell title="景点列表"></cell>
 			</group>
 			<div style="margin-top:.2rem;">
 				<ul>
-					<li v-for="(item,index) in detailList" :key="index">					
+					<li v-for="(item,index) in detailList" :key="index">
 						<div class="detail-list-left">
 								<img :src="item.icon">
 						</div>
 						<div class="detail-list-right">
 							<p class="head">{{item.title}}</p>
 							<p class="tail"><span style="color:#ff7846;">¥{{item.price}}</span></p>
-						</div>	
+						</div>
 						<div style="float:right;width:20%;">
 							<div style="margin-left:.4rem;padding-top:1.5rem;">
 								<x-button @click.native="gotoTicketPage(item)" type="primary" mini>购买</x-button>
 							</div>
 						</div>
-						<div style="clear:borth;"></div>				 	
+						<div style="clear:borth;"></div>
 						</li>
 				</ul>
 			</div>
@@ -82,7 +82,7 @@
 </template>
 
 <script>
-	import HeadModule from '../../common/head.vue'
+	import HeadModule from '../../components/head.vue'
 	import {Swiper,SwiperItem,Group,Cell,XButton} from 'vux'
 
 	export default{
@@ -109,7 +109,7 @@
 				let successCallback=(response)=>{
 					const jsondata = response.data
 					if(jsondata.res == 0){
-						this.detailList = jsondata.list							
+						this.detailList = jsondata.list
 						this.desc = jsondata.obj.desc
 						this.title = jsondata.obj.title+'介绍'
 						if(jsondata.obj.images){
@@ -122,8 +122,8 @@
 							this.imgList.push(item)
 							},this)
 						}
-					}						
-					
+					}
+
 				}
 
 				let errorCallback=(error)=>{

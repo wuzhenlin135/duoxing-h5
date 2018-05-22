@@ -2,7 +2,7 @@ import Vue from 'vue'
 import router from './router'
 import App from './app'
 import store from './store'
-import axios from './components/axios'
+import http from './utils/request'
 // import axios from './app.vue'
 import * as filters from './filters'
 import './assets/styles/base.css'
@@ -19,7 +19,7 @@ Vue.component('Cell', Cell)*/
 import {LoadingPlugin ,AlertPlugin, ToastPlugin} from 'vux'
 Vue.use(LoadingPlugin)
 Vue.use(AlertPlugin)
-Vue.use(ToastPlugin)
+Vue.use(ToastPlugin, {type: 'text'})
 
 // 表单验证插件，不需要请注释掉
 import verify from "vue-verify-plugin";
@@ -51,7 +51,7 @@ Object.keys(filters).forEach(key => {
 })
 
 // 在组件中可以直接使用this.$axios访问
-Vue.prototype.$axios = axios;
+Vue.prototype.$axios = http;
 
 // simple history management
 const history = window.sessionStorage
@@ -79,10 +79,11 @@ router.afterEach((to, from, next) => {
 
 })
 /* eslint-disable no-new */
-new Vue({
+var vue = new Vue({
   el: '#app',
   router,
   store,
   template: '<App/>',
   components: { App }
 })
+Vue.prototype.$axios.vue = vue

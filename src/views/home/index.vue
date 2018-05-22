@@ -2,14 +2,14 @@
 	 .home-list .weui-media-box_appmsg .weui-media-box__hd {
 	 	width:100px;
 	 }
-	
+
 
 </style>
 <template>
   <div>
-  	<div class="home-list home-context">	
+  	<div class="home-list home-context">
   		<Panel header="" :footer="footer" :list="list" :type="type"></Panel>
-  	</div>	
+  	</div>
   </div>
 </template>
 
@@ -29,12 +29,12 @@
 			}
 		},
 		created(){
+			this.$vux.toast.show("xxx")
 			console.log("created")
 			this.getScenicList()
 		},
-		methods:{			
+		methods:{
 			getScenicList(){
-
 				let successCallback=(response)=>{
 					const jsondata = response.data
 					if(jsondata.res == 0){
@@ -56,12 +56,8 @@
 						}
 					}
 				}
-
-				let errorCallback=(error)=>{
-
-				}
 				this.$axios.get('/app/scenic-list?access-token=111111').then(successCallback,errorCallback)
-			}	
+			}
 
 		},
 	}

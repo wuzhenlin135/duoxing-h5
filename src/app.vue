@@ -20,8 +20,8 @@
 
 <script>
 
-  import mTabbar from 'common/tab/tabbar.vue'
-  import mTabbarItem from 'common/tab/tabbaritem.vue'
+  import mTabbar from 'components/tab/tabbar.vue'
+  import mTabbarItem from 'components/tab/tabbaritem.vue'
 
   export default {
 
