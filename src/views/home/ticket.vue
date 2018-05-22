@@ -1,5 +1,19 @@
 <style>
-
+	.ticket-confirm{
+		position:relative;
+		padding:.4rem;
+		background:#a0a0a0;
+	}
+	.ticket-confirm .price{
+		font-size:1.5rem;
+		color:red;
+	}
+	.ticket-confirm .conButton{
+		position:absolute;
+		right:0;
+		top:.5rem;
+		padding-right:1rem;
+	}
 </style>
 <template>
 	<div>
@@ -20,17 +34,22 @@
 				<x-number title="人数" v-model="count" :min="1"></x-number>
 			</group>
             <group>
-            	<p>¥{{count*this.price}}</p>
+               <div class="ticket-confirm">
+            		<p class="price">¥{{count*this.price}}</p>
+            		<div class="conButton">
+            			<x-button type="primary" mini>确认</x-button>
+            		</div>
+               </div>	
             </group>
 		</div>		 
 	</div>
 </template>
 <script>
 	import HeadModule from '../../common/head.vue'
-	import {Group,XInput,PopupRadio,XNumber} from 'vux'
+	import {Group,XInput,PopupRadio,XNumber,XButton} from 'vux'
 	export default{
 		components:{
-			HeadModule,Group,XInput,PopupRadio,XNumber
+			HeadModule,Group,XInput,PopupRadio,XNumber,XButton
 		},
 		data(){
 			return{
