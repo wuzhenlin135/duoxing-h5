@@ -1,28 +1,28 @@
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
 
-const TokenKey = 'X-Token'
-const JsOpenIdKey = 'jsopenid'
+const TokenKey = 'X-TOKEN'
+const WXOpenIdKey = 'WX-OPENID'
 
 export function getToken() {
-  return Cookies.get(TokenKey)
+  return localStorage.getItem(TokenKey)
 }
 
 export function setToken(token) {
-  return Cookies.set(TokenKey, token)
+  return localStorage.setItem(TokenKey, token)
 }
 
 export function removeToken() {
-  return Cookies.remove(TokenKey)
+  return localStorage.removeItem(TokenKey)
 }
 
-export function getJsOpenId() {
-  return Cookies.get(JsOpenIdKey)
+export function getWXOpenId() {
+  return localStorage.getItem(WXOpenIdKey)
 }
 
-export function setJsOpenId(openid) {
-  return Cookies.set(JsOpenIdKey, openid)
+export function setWXOpenId(openid) {
+  return localStorage.setItem(WXOpenIdKey, openid)
 }
 
-export function removeJsOpenId() {
-  return Cookies.remove(JsOpenIdKey)
+export function removeWXOpenId() {
+  return localStorage.removeItem(WXOpenIdKey)
 }

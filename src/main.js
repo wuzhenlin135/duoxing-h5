@@ -3,81 +3,36 @@ import router from './router'
 import App from './app'
 import store from './store'
 import http from './utils/request'
-// import axios from './app.vue'
-import * as filters from './filters'
+import { cookie } from 'vux'
+import './history'
+import './global'
 import './assets/styles/base.css'
+import Cookies from 'js-cookie'
 
-
-// 全局引入vux组件库
-/*import Group from './components/Group'
-Vue.component('Group', Group)
-import Cell from './components/Cell'
-Vue.component('Cell', Cell)*/
-
-
-// 全局引入vux提供的插件
-import {LoadingPlugin ,AlertPlugin, ToastPlugin} from 'vux'
-Vue.use(LoadingPlugin)
-Vue.use(AlertPlugin)
-Vue.use(ToastPlugin, {type: 'text'})
-
-// 表单验证插件，不需要请注释掉
-import verify from "vue-verify-plugin";
-var myRules = {
-    phone: {
-        test: /^1[34578]\d{9}$/,
-        message: "电话号码格式不正确"
-    }
-}
-Vue.use(verify, {
-    blur: true,// 是否失去焦点后开始验证
-    rules: myRules
-});
-
-var configPath = ''
-if (window.location.protocol == "https:") {
-  configPath = process.env.BASE_URL.replace('http', 'https')
-} else {
-  configPath = process.env.BASE_URL
-}
-
-window.configPath = configPath
 
 const FastClick = require('fastclick')
 FastClick.attach(document.body)
 
-Object.keys(filters).forEach(key => {
-  Vue.filter(key, filters[key])
+store.commit('SET_TOKEN', "111111")
+store.commit('SET_WXOPENID', "1111")
+// 微信登录
+// var at = cookie.get('at',{path:'/'})
+// var jsopenid = cookie.get('jsopenid',{path:'/'})
+// if (jsopenid != undefined && at != undefined) {
+//   store.commit('SET_TOKEN', "111111")
+//   store.commit('SET_WXOPENID', "1111")
+// } else {
+//   var sharePath = process.env.SHARE_ROOT
+//   var url = window.location.hash.substr(1)
+//   var wxurl = "http://xxxx/get-weixin-code.html?appid=xxxx&scope=snsapi_userinfo&state=" + url + "&redirect_uri=" + sharePath + "/web/wx-oauth-redirect"
+//   window.location.href = wxurl
+// }
+
+// 请求用户信息
+store.dispatch('GetProfile').then(() => {
+  console.log("load profile success")
 })
 
-// 在组件中可以直接使用this.$axios访问
-Vue.prototype.$axios = http;
-
-// simple history management
-const history = window.sessionStorage
-history.clear()
-let historyCount = history.getItem('count') * 1 || 0
-history.setItem('/', 0)
-router.beforeEach((to, from, next) => {
-  const toIndex = history.getItem(to.path)
-  const fromIndex = history.getItem(from.path)
-  if (toIndex) {
-    if (toIndex > fromIndex || !fromIndex || (toIndex === '0' && fromIndex === '0')) {
-      store.commit('SET_DIRECTION', 'forward')
-    } else {
-      store.commit('SET_DIRECTION', 'reverse')
-    }
-  } else {
-    ++historyCount
-    history.setItem('count', historyCount)
-    to.path !== '/' && history.setItem(to.path, historyCount)
-    store.commit('SET_DIRECTION', 'forward')
-  }
-    next()
-})
-router.afterEach((to, from, next) => {
-
-})
 /* eslint-disable no-new */
 var vue = new Vue({
   el: '#app',
@@ -86,4 +41,5 @@ var vue = new Vue({
   template: '<App/>',
   components: { App }
 })
-Vue.prototype.$axios.vue = vue
+
+http.vue = vue

@@ -33,13 +33,12 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(
   response => {
     const data = response.data
-    service.showToast("哈哈哈")
-
-    if (data.res !== 0) {
-      service.showToast(data.msg)
-      return Promise.reject('error')
-    } else if (data.res === 50008 || data.res === 50012 || data.res === 50014) { // 50008:非法的token; 50012:其他客户端登录了;  50014:Token 过期了;
+    if (data.res === 50008 || data.res === 50012 || data.res === 50014) { // 50008:非法的token; 50012:其他客户端登录了;  50014:Token 过期了;
       service.showToast('token已失效，请重新登录')
+      return Promise.reject('token已失效，请重新登录')
+    } else if (data.res !== 0) {
+      service.showToast(data.msg)
+      return Promise.reject(data.msg)
     } else {
       return data
     }

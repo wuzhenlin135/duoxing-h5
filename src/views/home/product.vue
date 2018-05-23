@@ -82,16 +82,16 @@
 </template>
 
 <script>
-	import HeadModule from '../../components/head.vue'
+	import HeadModule from '@/components/head.vue'
 	import {Swiper,SwiperItem,Group,Cell,XButton} from 'vux'
-
+	import { getScenicDetail} from '@/api'
 	export default{
 		components:{
 			HeadModule,Swiper,SwiperItem,Group,Cell,XButton
 		},
 		created(){
 			this.scenicId = this.$route.params.id
-			this.getScenicDetail()
+			this.fetchScenicDetail()
 		},
 		data(){
 			return{
@@ -103,36 +103,33 @@
 				showDes:false
 			}
 		},
-		methods:{
-			getScenicDetail(){
-
-				let successCallback=(response)=>{
-					const jsondata = response.data
-					if(jsondata.res == 0){
-						this.detailList = jsondata.list
-						this.desc = jsondata.obj.desc
-						this.title = jsondata.obj.title+'介绍'
-						if(jsondata.obj.images){
-							jsondata.obj.images.forEach(function(imgData){
-								var item = {
-									url:'javascript:',
-									title:'',
-									img:imgData
-							}
-							this.imgList.push(item)
-							},this)
+		methods: {
+			fetchScenicDetail() {
+				this.$vux.loading.show({
+					text: '正在加载...'
+				})
+				let params = {
+					scenicId: this.scenicId
+				}
+				getScenicDetail(params).then(data=> {
+					this.detailList = data.list
+					this.desc = data.obj.desc
+					this.title = data.obj.title + '介绍'
+					if (data.obj.images) {
+						data.obj.images.forEach(imgData => {
+							var item = {
+								url:'javascript:',
+								title:'',
+								img:imgData
 						}
+						this.imgList.push(item)
+						}, this)
 					}
-
-				}
-
-				let errorCallback=(error)=>{
-
-				}
-				var data = {
-					scenicId:this.scenicId
-				}
-				this.$axios.get('/app/scenic-detail?access-token=111111',{params:data}).then(successCallback,errorCallback)
+				}).catch(error=>{
+					//nothing
+				}).finally(() => {
+					this.$vux.loading.hide()
+				})
 			},
 			gotoTicketPage(itemData){
 				console.log('ticket')

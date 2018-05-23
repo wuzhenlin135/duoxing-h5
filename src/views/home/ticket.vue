@@ -25,9 +25,7 @@
 			</group>
 			<group>
 				<popup-radio title="上车日期" :options="extDates" v-model="date" @on-hide="changeData()"></popup-radio>
-
 				<popup-radio title="上车时间" :options="extTimes" v-model="time"></popup-radio>
-
 				<popup-radio title="上车地点" :options="extLoctions" v-model="location"></popup-radio>
 			</group>
 			<group>
@@ -45,8 +43,9 @@
 	</div>
 </template>
 <script>
-	import HeadModule from '../../components/head.vue'
-	import {Group,XInput,PopupRadio,XNumber} from 'vux'
+	import HeadModule from '@/components/head.vue'
+	import {Group,XInput,PopupRadio,XNumber,XButton} from 'vux'
+
 	export default{
 		components:{
 			HeadModule,Group,XInput,PopupRadio,XNumber,XButton
@@ -89,6 +88,7 @@
 				this.time = this.extDatetime[this.date][0]
 				this.location = this.extLoctions[0]
 			},
+
 			changeData(){
 				this.extTimes = this.extDatetime[this.date]
 				this.time = this.extDatetime[this.date][0]
