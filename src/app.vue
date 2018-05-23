@@ -20,25 +20,21 @@
 
 <script>
 
-  import mTabbar from 'common/tab/tabbar.vue'
-  import mTabbarItem from 'common/tab/tabbaritem.vue'
+  import mTabbar from 'components/tab/tabbar.vue'
+  import mTabbarItem from 'components/tab/tabbaritem.vue'
 
   export default {
-
     name: 'app',
-
     components: {
       mTabbar,
       mTabbarItem
     },
-
     data () {
       return {
         isHome: true,
         isMe: false
       }
     },
-
     methods: {
       changeSelectedValue: function (elValue) {
         console.log("elValue : "+elValue);

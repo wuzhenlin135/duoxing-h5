@@ -25,9 +25,7 @@
 			</group>
 			<group>
 				<popup-radio title="上车日期" :options="extDates" v-model="date" @on-hide="changeData()"></popup-radio>
-		
 				<popup-radio title="上车时间" :options="extTimes" v-model="time"></popup-radio>
-		
 				<popup-radio title="上车地点" :options="extLoctions" v-model="location"></popup-radio>
 			</group>
 			<group>
@@ -39,14 +37,15 @@
             		<div class="conButton">
             			<x-button type="primary" mini>确认</x-button>
             		</div>
-               </div>	
+               </div>
             </group>
-		</div>		 
+		</div>
 	</div>
 </template>
 <script>
-	import HeadModule from '../../common/head.vue'
+	import HeadModule from '@/components/head.vue'
 	import {Group,XInput,PopupRadio,XNumber,XButton} from 'vux'
+
 	export default{
 		components:{
 			HeadModule,Group,XInput,PopupRadio,XNumber,XButton
@@ -68,30 +67,31 @@
 			}
 		},
 		created(){
-			this.ticketData = this.$route.query.tickData	
+			this.ticketData = this.$route.query.tickData
 			this.getData()
 
 		},
 		methods:{
-			getData(){		
-				
+			getData(){
+
 				this.extLoctions = this.ticketData.extLoctions
 				this.extDatetime = this.ticketData.extDatetime
-				this.price = this.ticketData.price				
+				this.price = this.ticketData.price
 				if(this.extDatetime){
 					for(var key in this.extDatetime){
 						console.log(key)
-						this.extDates.push(key)	
+						this.extDates.push(key)
 					}
 				}
 				this.date = this.extDates[0]
 				this.extTimes = this.extDatetime[this.date]
-				this.time = this.extDatetime[this.date][0]				
+				this.time = this.extDatetime[this.date][0]
 				this.location = this.extLoctions[0]
 			},
+
 			changeData(){
 				this.extTimes = this.extDatetime[this.date]
-				this.time = this.extDatetime[this.date][0]	
+				this.time = this.extDatetime[this.date][0]
 			},
 		}
 	}

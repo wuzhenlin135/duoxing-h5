@@ -1,38 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import app from './modules/app'
+import user from './modules/user'
+import getters from './getters'
 
 Vue.use(Vuex)
-
 const store = new Vuex.Store({
-  state: {
-    loading: false,
-    direction: 'forward',
+  modules: {
+    app,
+    user
   },
-
-  actions: {
-    FETCH_LOADING: ({commit, state}) => {
-      return state.loading
-    }
-  },
-
-  mutations: {
-    SET_LOADING: (state, bool) => {
-      state.loading = bool
-    },
-
-    SET_DIRECTION: (state, str) => {
-      state.direction = str
-    } 
-  },
-
-  getters: {
-    loading (state, getters) {
-      return state.loading
-    },
-    direction (state, getters) {
-      return state.direction
-    }
-  }
+  getters
 })
 
 export default store

@@ -2,19 +2,18 @@
 	 .home-list .weui-media-box_appmsg .weui-media-box__hd {
 	 	width:100px;
 	 }
-	
-
 </style>
 <template>
   <div>
-  	<div class="home-list home-context">	
+  	<div class="home-list home-context">
   		<Panel header="" :footer="footer" :list="list" :type="type"></Panel>
-  	</div>	
+  	</div>
   </div>
 </template>
 
 <script>
 	import {Panel} from 'vux'
+	import { getScenicList } from '../../api'
 	export default{
 		components:{
 			Panel
@@ -29,41 +28,30 @@
 			}
 		},
 		created(){
-			console.log("created")
-			this.getScenicList()
+			this.fetchScenicList()
 		},
-		methods:{			
-			getScenicList(){
-
-				let successCallback=(response)=>{
-					const jsondata = response.data
-					if(jsondata.res == 0){
-						if(jsondata.list){
-							jsondata.list.forEach(function(t){
-								var item = {
-									url:"/home/product/"+t.id,
-									src:t.icon,
-									title:t.title,
-									desc:t.overview
-								}
-								this.list.push(item)
-								this.list.push(item)
-								this.list.push(item)
-								this.list.push(item)
-								this.list.push(item)
-								this.list.push(item)
-							},this)
-						}
-					}
-				}
-
-				let errorCallback=(error)=>{
-
-				}
-				this.$axios.get('/app/scenic-list?access-token=111111').then(successCallback,errorCallback)
-			}	
-
-		},
+		methods: {
+			fetchScenicList() {
+				this.$vux.loading.show({
+					text: '正在加载...'
+				})
+				getScenicList().then(data=> {
+					data.list.forEach(item => {
+						this.list.push({
+								url: "/home/product/"+item.id,
+								src: item.icon,
+								title: item.title,
+								desc: item.overview
+						})
+					})
+				}).catch(error=>{
+					//nothing
+					console.log('ERROR :::: ' + error)
+				}).finally(() => {
+					this.$vux.loading.hide()
+				})
+			}
+		}
 	}
 
 </script>

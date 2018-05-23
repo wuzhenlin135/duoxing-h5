@@ -1,6 +1,6 @@
 <style>
 .me-head{
-	padding:.8rem;		
+	padding:.8rem;
 }
 .me-head img{
 	width:100px;
@@ -9,10 +9,10 @@
 }
 </style>
 <template>
-  <div>	
+  <div>
   	 <div class="me-head">
-  	 	<img src="../../assets/images/mehead.png">
-  	 	<span style="margin-left:.4rem;font-size:1.2rem;">小饭</span>
+  	 	<img :src="avatar">
+  	 	<span style="margin-left:.4rem;font-size:1.2rem;">{{nickName}}</span>
   	 </div>
   	 <group>
   	 	<cell is-link link="/order" title="我的订单"></cell>
@@ -30,10 +30,18 @@
 
 <script>
 	import {Group,Cell,XDialog} from 'vux'
+	import {mapGetters} from 'vuex'
 
 	export default {
 		components:{
 			Group,Cell,XDialog
+		},
+		computed: {
+			...mapGetters([
+				'name',
+				'nickName',
+				'avatar'
+			])
 		},
 		methods:{
 
