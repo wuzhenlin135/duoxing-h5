@@ -22,7 +22,7 @@
   	 </group>
   	 <div>
   	 	<x-dialog v-model="show">
-  	 		
+
   	 	</x-dialog>
   	 </div>
   </div>
@@ -41,7 +41,7 @@
 		data(){
 			return{
 				telephone:"13823781001",
-				show:true
+				show:false
 			}
 		}
 	}
