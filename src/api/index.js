@@ -26,6 +26,13 @@ export function getProfile() {
   })
 }
 
+export function getOrderList() {
+  return request({
+    url: '/app/order-list',
+    method: 'get'
+  })
+}
+
 export function submit(productId, count, price, userName, userPhone, location, date, time) {
   let communId = store.state.communId
   let jsopenid = store.state.wxopenid
