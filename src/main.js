@@ -8,11 +8,22 @@ import './history'
 import './global'
 import './assets/styles/base.css'
 import Cookies from 'js-cookie'
-
+import { getUrlParam } from '@/utils'
 
 const FastClick = require('fastclick')
 FastClick.attach(document.body)
 
+let communId = getUrlParam("communId")
+if (communId) {
+  console.log('communId = ' + communId)
+  store.dispatch('GetCommunInfo', communId).then(() => {
+    console.log("load commun success")
+  })
+}
+let scenicId = getUrlParam("scenicId")
+if (scenicId) {
+  store.commit('SET_SCENIC', scenicId)
+}
 store.commit('SET_TOKEN', "111111")
 store.commit('SET_WXOPENID', "1111")
 // 微信登录
