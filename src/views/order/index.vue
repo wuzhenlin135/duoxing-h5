@@ -6,7 +6,7 @@
     .order-line{
         margin-top:5px;
         background:#dddede;
-        height:1px;        
+        height:1px;
 
     }
     .order-div p{
@@ -19,13 +19,13 @@
     }
 </style>
 <template>
- 
+
       <div>
         <HeadModule></HeadModule>
             <div class="with-header">
                <ul>
-                  <li v-for="(item,index) in listData" :key="index">  
-                       <div class="order-div">             
+                  <li v-for="(item,index) in listData" :key="index">
+                       <div class="order-div">
                             <p><span>订单号:{{item.orderNumber}}</span>
                             <span class="order-status">{{item.statusLabel}}</span></p>
                             <p class="order-line" style="padding:0;"></p>
@@ -41,7 +41,7 @@
                         </div>
                         <p style="background:#e6e6e6;height:20px;"></p>
                  </li>
-               </ul> 
+               </ul>
             </div>
     </div>
 
@@ -50,6 +50,7 @@
 <script>
     import HeadModule from '@/components/head.vue'
     import {XButton,Divider} from 'vux'
+    import { getOrderList } from '@/api'
     export default {
         components:{
             XButton,Divider,HeadModule
@@ -64,22 +65,17 @@
             this.getOrders()
         },
         methods: {
-            getOrders(){
-                let successCallback=(response)=>{
-                    const jsondata = response.data
-                    if(jsondata.res == 0){
-                        if(jsondata.list){
-                            this.listData = jsondata.list
-                        }          
-                      
-                    }                       
-                    
-                }
-
-                let errorCallback=(error)=>{
-
-                }               
-                this.$axios.get('/app/order-list?access-token=111111').then(successCallback,errorCallback)
+            getOrders() {
+                this.$vux.loading.show({
+					text: '正在加载...'
+				})
+				getOrderList().then(data=> {
+					this.listData = data.list
+				}).catch(error=>{
+					//nothing
+				}).finally(() => {
+					this.$vux.loading.hide()
+                })
             }
         }
     }

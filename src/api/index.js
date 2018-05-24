@@ -10,7 +10,8 @@ export function getScenicList() {
   })
 }
 
-export function getScenicDetail(params) {
+export function getScenicDetail(scenicId) {
+  let params = { scenicId: scenicId }
   return request({
     url: '/app/scenic-detail',
     method: 'get',
@@ -25,9 +26,19 @@ export function getProfile() {
   })
 }
 
-export function getSubmit(productId, count, price, userName, userPhone, location, date, time) {
+export function getOrderList() {
+  return request({
+    url: '/app/order-list',
+    method: 'get'
+  })
+}
+
+export function submit(productId, count, price, userName, userPhone, location, date, time) {
   let communId = store.state.communId
   let jsopenid = store.state.wxopenid
+  if (!jsopenid) {
+    return Promise.reject('微信id未找到！')
+  }
   const data = Qs.stringify({
     'productId': productId,
     'count': count,
@@ -41,8 +52,26 @@ export function getSubmit(productId, count, price, userName, userPhone, location
     'jsopenid': jsopenid,
   })
   return request({
-    url: '/app/profile',
+    url: '/app/submit',
     method: 'post',
     data: data
+  })
+}
+
+export function getCommunInfo(communId) {
+  let params = { communId: communId }
+  return request({
+    url: '/app/commun-info',
+    method: 'get',
+    params
+  })
+}
+
+export function getCheckOrder(scenicId) {
+  let params = { scenicId: scenicId }
+  return request({
+    url: '/app/check-order',
+    method: 'get',
+    params
   })
 }

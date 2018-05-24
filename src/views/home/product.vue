@@ -108,10 +108,7 @@
 				this.$vux.loading.show({
 					text: '正在加载...'
 				})
-				let params = {
-					scenicId: this.scenicId
-				}
-				getScenicDetail(params).then(data=> {
+				getScenicDetail(this.scenicId).then(data=> {
 					this.detailList = data.list
 					this.desc = data.obj.desc
 					this.title = data.obj.title + '介绍'

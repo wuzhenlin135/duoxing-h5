@@ -1,3 +1,4 @@
+import Qs from 'qs'
 
 export function parseTime(time, cFormat) {
   if (arguments.length === 0) {
@@ -52,4 +53,8 @@ export function formatTime(time, option) {
   } else {
     return d.getMonth() + 1 + '月' + d.getDate() + '日' + d.getHours() + '时' + d.getMinutes() + '分'
   }
+}
+
+export function getUrlParam(key) {
+  return decodeURIComponent((new RegExp('[?|&]'+key+'='+'([^&;]+?)(&|#|;|$)').exec(location.href)||[,""])[1].replace(/\+/g,'%20')) || null;
 }
