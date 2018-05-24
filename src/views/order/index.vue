@@ -48,7 +48,7 @@
 </template>
 
 <script>
-    import HeadModule from '../../common/head.vue'
+    import HeadModule from '@/components/head.vue'
     import {XButton,Divider} from 'vux'
     export default {
         components:{
