@@ -13,14 +13,14 @@ import { getUrlParam } from '@/utils'
 const FastClick = require('fastclick')
 FastClick.attach(document.body)
 
-let communId = getUrlParam("communId")
+let communId = getUrlParam("shareCommunId")
 if (communId) {
   console.log('communId = ' + communId)
   store.dispatch('GetCommunInfo', communId).then(() => {
     console.log("load commun success")
   })
 }
-let scenicId = getUrlParam("scenicId")
+let scenicId = getUrlParam("shareScenicId")
 if (scenicId) {
   store.commit('SET_SCENIC', scenicId)
 }

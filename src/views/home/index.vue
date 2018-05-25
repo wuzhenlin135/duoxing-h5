@@ -13,7 +13,7 @@
 
 <script>
 	import {Panel} from 'vux'
-	import { getScenicList } from '../../api'
+	import { getScenicList } from '@/api'
 	export default{
 		components:{
 			Panel

@@ -50,6 +50,15 @@ export default new Router({
             component: resolve => require(['../views/order'], resolve)  ,
         },
         {
+            path: '/order/payresult',
+            name: 'payresult',
+            component:resolve=>require(['../views/order/payResult.vue'],resolve)
+        },
+        {
+            path: '/order/scanOrder',
+            component:resolve=>require(['../views/order/scanOrder.vue'],resolve)
+        },
+        {
             path: '*',
             name: 'page404',
             component: resolve => require(['../views/page404.vue'], resolve)

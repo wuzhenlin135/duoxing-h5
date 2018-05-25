@@ -20,8 +20,8 @@
 		<HeadModule></HeadModule>
 		<div class="with-header">
 			<group>
-				<x-input :min="2" :max="10" title="姓名:" :value="userName" placeholder="请输入您的真实姓名"></x-input>
-				<x-input keyboard="number" is-type="china-mobile"  title="手机号码:" :value="userPhone" placeholder="请输入您手机号码"></x-input>
+				<x-input :min="2" :max="10" title="姓名:" v-model="userName" placeholder="请输入您的真实姓名"></x-input>
+				<x-input keyboard="number" is-type="china-mobile"  title="手机号码:" v-model="userPhone" placeholder="请输入您手机号码"></x-input>
 			</group>
 			<group>
 				<popup-radio title="上车日期" :options="extDates" v-model="date" @on-hide="changeData()"></popup-radio>
@@ -35,7 +35,7 @@
                <div class="ticket-confirm">
             		<p class="price">¥{{count*this.price}}</p>
             		<div class="conButton">
-            			<x-button type="primary" mini>确认</x-button>
+            			<x-button type="primary" @click.native="submitOrder()" mini>确认</x-button>
             		</div>
                </div>
             </group>
@@ -44,6 +44,7 @@
 </template>
 <script>
 	import HeadModule from '@/components/head.vue'
+	import {submit} from '@/api'
 	import {Group,XInput,PopupRadio,XNumber,XButton} from 'vux'
 
 	export default{
@@ -57,6 +58,7 @@
 				userPhone:'',
 				date:'',
 				time:'',
+				productId:0,
 				location:'',
 				count:1,
 				extDates:[],
@@ -77,6 +79,7 @@
 				this.extLoctions = this.ticketData.extLoctions
 				this.extDatetime = this.ticketData.extDatetime
 				this.price = this.ticketData.price
+				this.productId = this.ticketData.id
 				if(this.extDatetime){
 					for(var key in this.extDatetime){
 						console.log(key)
@@ -93,6 +96,47 @@
 				this.extTimes = this.extDatetime[this.date]
 				this.time = this.extDatetime[this.date][0]
 			},
+			submitOrder(){				
+				if(!this.userName){
+					this.$vux.toast.show({text:"姓名不能为空"})
+					return
+				}
+				if(!this.userPhone){
+					this.$vux.toast.show({text:"手机号码不能为空"})
+					return
+				}
+				if(!this.date){
+					this.$vux.toast.show({text:"上车日期不能为空"})
+					return
+				}
+				if(!this.time){
+					this.$vux.toast.show({text:"山车时间不能为空"})
+					return
+				}
+				if(!this.location){
+					this.$vux.toast.show({text:"上车地点不能为空"})
+				}				
+				submit(this.productId,this.count,this.count*this.price,this.userName,this.userPhone,this.location,this.date,this.time).
+				then((jsondata)=>{	
+				this.$router.push({path:'/order/payresult'})
+				/**				
+					console.log("jsondata  : " + jsondata.obj.jsApiConfig);
+               		 WeixinJSBridge.invoke('getBrandWCPayRequest', jsondata.obj.jsApiConfig,                   
+                	  function(res) {
+                 		   console.log("getBrandWCPayRequest : " + res.err_msg);
+                    			if(res.err_msg == "get_brand_wcpay_request:ok" ) {                      
+                     	this.$router.push({path:'/order/payresult'})
+                      
+                    } else {
+                      this.$vux.alert.show({
+                        title: '错误',
+                        content: res.err_desc})
+                    }
+                  }
+                )
+                **/
+				})
+			}
 		}
 	}
 </script>

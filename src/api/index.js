@@ -34,8 +34,8 @@ export function getOrderList() {
 }
 
 export function submit(productId, count, price, userName, userPhone, location, date, time) {
-  let communId = store.state.communId
-  let jsopenid = store.state.wxopenid
+  let communId = store.getters.communId
+  let jsopenid = store.getters.wxopenid
   if (!jsopenid) {
     return Promise.reject('微信id未找到！')
   }
