@@ -9,6 +9,7 @@ const getters = {
   wxopenid: state => state.user.wxopenid,
   avatar: state => state.user.avatar,
   name: state => state.user.name,
-  nickName: state => state.user.nickName
+  nickName: state => state.user.nickName,
+  systemMsg:state=> state.user.systemMsg
 }
 export default getters

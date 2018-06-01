@@ -7,7 +7,12 @@ const user = {
     wxopenid: getWXOpenId(),
     name: '',
     nickName: '',
-    avatar: ''
+    avatar: '',
+    systemMsg: {
+      consumerHotline: '',
+      payMsg: '',
+      slogan: ''
+    }
   },
 
   mutations: {
@@ -28,6 +33,9 @@ const user = {
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
     },
+    SET_SYSMGS:(state,sysMsg)=>{
+      state.systemMsg = sysMsg
+    }
   },
 
   actions: {
@@ -39,6 +47,7 @@ const user = {
           commit('SET_NAME', data.userName)
           commit('SET_NICK_NAME', data.nickName)
           commit('SET_AVATAR', data.avatar)
+          commit('SET_SYSMGS',data.systemMsg)
           resolve(response)
         }).catch(error => {
           reject(error)

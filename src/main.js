@@ -7,6 +7,7 @@ import { cookie } from 'vux'
 import './history'
 import './global'
 import './assets/styles/base.css'
+import 'theme.less'
 import Cookies from 'js-cookie'
 import { getUrlParam } from '@/utils'
 

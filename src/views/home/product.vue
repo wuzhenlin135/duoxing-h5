@@ -16,6 +16,7 @@
   .detail-list-left{
   	float:left;
   	width:30%;
+  	padding-left:.8rem;
   	padding-bottom:.2rem;
   	clear:both;
   }
@@ -57,7 +58,7 @@
 			<group>
 				<cell title="景点列表"></cell>
 			</group>
-			<div style="margin-top:.2rem;">
+			<div style="margin-top:.4rem;">
 				<ul>
 					<li v-for="(item,index) in detailList" :key="index">
 						<div class="detail-list-left">

@@ -2,10 +2,14 @@
 	 .home-list .weui-media-box_appmsg .weui-media-box__hd {
 	 	width:100px;
 	 }
+
 </style>
 <template>
   <div>
   	<div class="home-list home-context">
+  	    <img src="../../assets/images/home_span.jpg" style="width:100%;">
+  	    <p style="padding:.4rem;text-align:center;color:#686868;" v-html="homeText"></p>
+  	    <p style="height:10px; background:#EFEEF4;"></p>
   		<Panel header="" :footer="footer" :list="list" :type="type"></Panel>
   	</div>
   </div>
@@ -13,6 +17,7 @@
 
 <script>
 	import {Panel} from 'vux'
+	import { mapGetters } from 'vuex'
 	import { getScenicList } from '@/api'
 	export default{
 		components:{
@@ -27,7 +32,15 @@
 				}
 			}
 		},
-		created(){
+		computed: {
+			...mapGetters([
+				'systemMsg'
+			]),
+			homeText: function () {
+				return this.systemMsg.slogan + '&nbsp;&nbsp;&nbsp;&nbsp;联系电话:&nbsp;' + this.systemMsg.consumerHotline
+			}
+		},
+		created() {
 			this.fetchScenicList()
 		},
 		methods: {

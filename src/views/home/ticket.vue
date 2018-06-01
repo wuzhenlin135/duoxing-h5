@@ -2,7 +2,8 @@
 	.ticket-confirm{
 		position:relative;
 		padding:.4rem;
-		background:#a0a0a0;
+		padding-left:45%;
+	//	background:#a0a0a0;
 	}
 	.ticket-confirm .price{
 		font-size:1.5rem;
@@ -20,7 +21,7 @@
 		<HeadModule></HeadModule>
 		<div class="with-header">
 			<group>
-				<x-input :min="2" :max="10" title="姓名:" v-model="userName" placeholder="请输入您的真实姓名"></x-input>
+				<x-input :min="2" :max="10" title="姓名:  " v-model="userName" placeholder="请输入您的真实姓名"></x-input>
 				<x-input keyboard="number" is-type="china-mobile"  title="手机号码:" v-model="userPhone" placeholder="请输入您手机号码"></x-input>
 			</group>
 			<group>
@@ -33,7 +34,7 @@
 			</group>
             <group>
                <div class="ticket-confirm">
-            		<p class="price">¥{{count*this.price}}</p>
+            		<p><span style="font-size:1.2rem;">合计: </span><span class="price">¥{{count*this.price}}</span></p>
             		<div class="conButton">
             			<x-button type="primary" @click.native="submitOrder()" mini>确认</x-button>
             		</div>
