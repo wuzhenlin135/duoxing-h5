@@ -41,12 +41,13 @@
       padding-top: 5px
       padding-bottom 1px
       img
-        width: 24px
-        height: 24px
+        width: 25px
+        height: 25px
     .m-tabbar-item-text
-      font-size: 8px
+      font-size: 10px
+      font-weight: bold
       color:#949494
     &.is-active
       .m-tabbar-item-text
-        color: #fa3e25
+        color: #f7893b
 </style>

@@ -20,7 +20,7 @@
     }
     .line-status{
         position:absolute;
-        right:0;        
+        right:0;
         padding-right:.6rem;
     }
 </style>
@@ -47,9 +47,9 @@
                              <p>联系电话<span class="line-status">{{item.userPhone}}</span></p>
                             <p>上车地点<span class="line-status">{{item.location}}</span></p>
                             <p>上车时间<span class="line-status">{{item.datetime}}</span></p>
-                                      
+
                             <p class="order-line" style="padding:0;margin-top:10px"></p>
-                            <p style="text-align:left;color:red;font-size:1.5rem;">¥&nbsp{{item.price}}</p>
+                            <p style="text-align:left;color:red;font-size:1.5rem;">¥&nbsp;{{item.price}}</p>
                         </div>
                         <p style="background:#f0eff5;height:20px;"></p>
                  </li>
@@ -75,7 +75,7 @@
             }
         },
         created(){
-           
+
             if(this.$route.query.clearHistory){
                 this.shouldClearHistory = this.$route.query.clearHistory
             }
@@ -87,12 +87,12 @@
 					text: '正在加载...'
 				})
 				getOrderList().then(data=> {
+                    this.$vux.loading.hide()
 					this.listData = data.list
 				}).catch(error=>{
+                    this.$vux.loading.hide()
 					//nothing
-				}).finally(() => {
-					this.$vux.loading.hide()
-                })
+				})
             }
         }
     }

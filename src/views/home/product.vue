@@ -1,12 +1,13 @@
 <style>
 	.detail-des{
-		front-size:.25rem;
-		padding-left:.5rem;
-		padding-rigth:.5rem;
+		font-size:.25rem;
+		padding-left:.75rem;
+		padding-right:.75rem;
 		margin-bottom:.15rem;
+		margin-top:.1rem;
 	}
 	 .detail-intro{
-	   	text-overflow: -o-ellipsis-lastline;
+	  text-overflow: -o-ellipsis-lastline;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		display: -webkit-box;
@@ -41,8 +42,8 @@
   }
 </style>
 <template>
-  <div>
-   	<HeadModule></HeadModule>
+  <div style="padding-bottom:20px">
+  <HeadModule></HeadModule>
 	<div class="with-header">
 		<swiper :list="imgList" direction="horizontal" :show-desc-mask=false auto loop></swiper>
 		<group>
@@ -53,7 +54,7 @@
 			></cell>
 		</group>
 		<p v-if="!showDes" class="detail-des detail-intro" v-html="desc"></p>
-		<p v-if=showDes class="detail-des" v-html="desc"></p>
+		<p v-if="showDes" class="detail-des" v-html="desc"></p>
 		<div>
 			<group>
 				<cell title="景点列表"></cell>
@@ -110,6 +111,7 @@
 					text: '正在加载...'
 				})
 				getScenicDetail(this.scenicId).then(data=> {
+					this.$vux.loading.hide()
 					this.detailList = data.list
 					this.desc = data.obj.desc
 					this.title = data.obj.title + '介绍'
@@ -124,9 +126,8 @@
 						}, this)
 					}
 				}).catch(error=>{
-					//nothing
-				}).finally(() => {
 					this.$vux.loading.hide()
+					//nothing
 				})
 			},
 			gotoTicketPage(itemData){

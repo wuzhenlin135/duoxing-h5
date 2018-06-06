@@ -5,7 +5,7 @@
        	<div>
 
        	</div>
-       </div>   	
+       </div>
   </div>
 </template>
 
@@ -17,6 +17,7 @@
 		components:{
 			HeadModule
 		},
+
 		data () {
 			return {
 				shouldClearHistory:1,
@@ -25,9 +26,11 @@
 				title:''
 			}
 		},
+
 		created(){
 			this.getScanOrder()
 		},
+
 		methods:{
 			getScanOrder(){
 				const scenicId = this.$store.getters.scenicId

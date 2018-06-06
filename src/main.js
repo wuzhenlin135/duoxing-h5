@@ -25,21 +25,27 @@ let scenicId = getUrlParam("shareScenicId")
 if (scenicId) {
   store.commit('SET_SCENIC', scenicId)
 }
-store.commit('SET_TOKEN', "111111")
-store.commit('SET_WXOPENID', "1111")
-// 微信登录
-// var at = cookie.get('at',{path:'/'})
-// var jsopenid = cookie.get('jsopenid',{path:'/'})
-// if (jsopenid != undefined && at != undefined) {
-//   store.commit('SET_TOKEN', "111111")
-//   store.commit('SET_WXOPENID', "1111")
-// } else {
-//   var sharePath = process.env.SHARE_ROOT
-//   var url = window.location.hash.substr(1)
-//   var wxurl = "http://xxxx/get-weixin-code.html?appid=xxxx&scope=snsapi_userinfo&state=" + url + "&redirect_uri=" + sharePath + "/web/wx-oauth-redirect"
-//   window.location.href = wxurl
-// }
-
+if (process.env.NODE_ENV === 'development') {
+  store.commit('SET_TOKEN', "75a7b4c2f5e1d625f0beac593ecb9a30")
+  store.commit('SET_WXOPENID', "111111111")
+} else {
+  // 微信登录
+  var at = cookie.get('at',{path:'/'})
+  var jsopenid = cookie.get('jsopenid',{path:'/'})
+  console.log(at)
+  console.log(jsopenid)
+  if (jsopenid != undefined && at != undefined) {
+    store.commit('SET_TOKEN', at)
+    store.commit('SET_WXOPENID', jsopenid)
+  } else {
+    var sharePath = process.env.BASE_URL
+    var url = window.location.hash.substr(1)
+    console.log(url)
+    var wxurl = "http://www.szwzznkj.com/get-weixin-code.html?appid=wxa394628a900009f9&scope=snsapi_userinfo&state=" + url + "&redirect_uri=" + sharePath + "/web/wx-oauth-redirect"
+    window.location.href = wxurl
+    // return
+  }
+}
 // 请求用户信息
 store.dispatch('GetProfile').then(() => {
   console.log("load profile success")
