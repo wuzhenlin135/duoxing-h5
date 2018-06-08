@@ -1,5 +1,5 @@
 import { getProfile } from '@/api'
-import { getToken, setToken, removeToken, getWXOpenId, setWXOpenId, removeWXOpenId } from '@/utils/auth'
+import { getToken, setToken, removeToken, getWXOpenId, setWXOpenId, removeWXOpenId, removeAuthCookies } from '@/utils/auth'
 
 const user = {
   state: {
@@ -33,7 +33,7 @@ const user = {
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar
     },
-    SET_SYSMGS:(state,sysMsg)=>{
+    SET_SYSMGS: (state, sysMsg) => {
       state.systemMsg = sysMsg
     }
   },
@@ -47,11 +47,21 @@ const user = {
           commit('SET_NAME', data.userName)
           commit('SET_NICK_NAME', data.nickName)
           commit('SET_AVATAR', data.avatar)
-          commit('SET_SYSMGS',data.systemMsg)
+          commit('SET_SYSMGS', data.systemMsg)
           resolve(response)
         }).catch(error => {
           reject(error)
         })
+      })
+    },
+    // 前端 登出
+    FedLogOut({ commit }) {
+      return new Promise(resolve => {
+        commit('SET_TOKEN', '')
+        removeToken()
+        removeWXOpenId()
+        removeAuthCookies()
+        resolve()
       })
     }
   }

@@ -1,18 +1,23 @@
 <style>
-	.ticket-confirm{
+	.confirm-container {
 		position:relative;
-		padding:.4rem;
-		padding-left:45%;
-		background:#a0a0a0;
+		background:#dddddd;
+		line-height: 50px;
+		text-align: center;
 	}
-	.ticket-confirm .price{
-		font-size:1.5rem;
+	.price-container {
+		font-size:16px
+	}
+	.confirm-container .price{
+		font-size:32px;
 		color:red;
+		padding-bottom: 5px;
+		vertical-align: bottom;
 	}
-	.ticket-confirm .conButton{
+	.confirm-container .conButton{
 		position:absolute;
 		right:0;
-		top:.5rem;
+		top:0;
 		padding-right:1rem;
 	}
 </style>
@@ -38,12 +43,18 @@
 			</group>
 
 			<group>
-					<div class="ticket-confirm">
-					<p><span style="font-size:1.2rem;">合计: </span><span class="price">¥{{count*this.price}}</span></p>
-					<div class="conButton">
-						<x-button type="primary" @click.native="submitOrder()" mini>确认</x-button>
+
+					<div class="confirm-container">
+						<p class="price-container">
+							<span >合计: </span>
+							<span style="color:red;">¥</span>
+							<span class="price">{{ count * price }}</span>
+						</p>
+						<div class="conButton">
+							<x-button type="primary" @click.native="submitOrder()" mini>确认</x-button>
+						</div>
 					</div>
-					</div>
+
 			</group>
 		</div>
 	</div>
@@ -80,12 +91,12 @@
 
 		},
 		methods:{
-			getData(){
+			getData() {
 				this.extLoctions = this.ticketData.extLoctions
 				this.extDatetime = this.ticketData.extDatetime
 				this.price = this.ticketData.price
 				this.productId = this.ticketData.id
-				if(this.extDatetime){
+				if(this.extDatetime) {
 					for(var key in this.extDatetime){
 						console.log(key)
 						this.extDates.push(key)
@@ -97,11 +108,11 @@
 				this.location = this.extLoctions[0]
 			},
 
-			changeData(){
+			changeData() {
 				this.extTimes = this.extDatetime[this.date]
 				this.time = this.extDatetime[this.date][0]
 			},
-			submitOrder(){
+			submitOrder() {
 
 				if(!this.userName){
 					this.$vux.toast.show({text:"姓名不能为空"})

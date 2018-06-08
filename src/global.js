@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import * as filters from './filters' // global filters
 
 // 全局引入vux提供的插件
 import {LoadingPlugin ,AlertPlugin, ToastPlugin} from 'vux'
@@ -18,3 +19,8 @@ Vue.use(verify, {
     blur: true,// 是否失去焦点后开始验证
     rules: myRules
 });
+
+// register global utility filters.
+Object.keys(filters).forEach(key => {
+    Vue.filter(key, filters[key])
+  })

@@ -35,6 +35,9 @@ service.interceptors.response.use(
     const data = response.data
     if (data.res === 50008 || data.res === 50012 || data.res === 50014) { // 50008:非法的token; 50012:其他客户端登录了;  50014:Token 过期了;
       service.showToast('token已失效，请重新登录')
+      store.dispatch('FedLogOut').then(() => {
+        location.reload()// 为了重新实例化vue-router对象 避免bug
+      })
       return Promise.reject('token已失效，请重新登录')
     } else if (data.res !== 0) {
       service.showToast(data.msg)

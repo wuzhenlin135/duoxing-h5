@@ -1,4 +1,4 @@
-// import Cookies from 'js-cookie'
+import Cookies from 'js-cookie'
 
 const TokenKey = 'X-TOKEN'
 const WXOpenIdKey = 'WX-OPENID'
@@ -25,4 +25,17 @@ export function setWXOpenId(openid) {
 
 export function removeWXOpenId() {
   return localStorage.removeItem(WXOpenIdKey)
+}
+
+export function removeAuthCookies() {
+  Cookies.remove('at', { path: '/' })
+  Cookies.remove('jsopenid', { path: '/' })
+}
+
+export function getCookieAt() {
+  return Cookies.get('at', { path: '/' })
+}
+
+export function getCookieJsopenid() {
+  return Cookies.get('jsopenid', { path: '/' })
 }

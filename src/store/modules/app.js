@@ -28,7 +28,7 @@ const app = {
   },
 
   actions: {
-    GetCommunInfo: ({commit, state}, communId) => {
+    GetCommunInfo: ({ commit, state }, communId) => {
       commit('SET_COMMUN', communId)
       return new Promise((resolve, reject) => {
         getCommunInfo(communId).then(response => {

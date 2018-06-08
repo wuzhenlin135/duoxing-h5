@@ -1,3 +1,5 @@
+export { parseTime, formatTime } from '@/utils'
+
 function pluralize (time, label) {
   return time + label + '前'
 }
@@ -43,4 +45,4 @@ export function formatDate (date, fmt) {
   return fmt
 }
 
- 
+
