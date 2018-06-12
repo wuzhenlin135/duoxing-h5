@@ -1,13 +1,13 @@
 <style>
 	.detail-des{
-		font-size:.25rem;
+		font-size:12px;
 		padding-left:.75rem;
 		padding-right:.75rem;
 		margin-bottom:.15rem;
 		margin-top:.1rem;
 	}
-	 .detail-intro{
-	  text-overflow: -o-ellipsis-lastline;
+	.detail-intro{
+		text-overflow: -o-ellipsis-lastline;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		display: -webkit-box;
